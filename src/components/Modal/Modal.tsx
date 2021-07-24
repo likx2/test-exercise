@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, MouseEvent, FormEvent } from "react";
 import { useSelector } from "react-redux";
 
 import GLobalState from "../../types/GlobalState";
-import { Wrapper } from "./styles";
+import { Bottom, CloseBtn, Form, SubmitBtn, Top, Wrapper } from "./styles";
 import "./styles.ts";
 
-const Modal = () => {
+const Modal = ({ SetIsModalOpened }: { SetIsModalOpened: any }) => {
   const { cargoes, terminals, error, loading } = useSelector(
     (state: GLobalState) => state.data
   );
@@ -14,11 +14,29 @@ const Modal = () => {
 
   if (error) return <h1>{error}</h1>;
 
+  const submitHandler = (e: FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <Wrapper>
-      {cargoes.map((cargo) => (
-        <p key={cargo.id}>{cargo.name}</p>
-      ))}
+      <Top>
+        <h2>Edit Rotation</h2>
+        <CloseBtn onClick={() => SetIsModalOpened(false)}>&times;</CloseBtn>
+      </Top>
+      <Form>
+        <select name="terminals" id="">
+          <option>add...</option>
+          {terminals.map((terminal) => (
+            <option key={terminal.id}>{terminal.name}</option>
+          ))}
+        </select>
+      </Form>
+      <Bottom>
+        <SubmitBtn type="submit" onClick={submitHandler}>
+          Submit
+        </SubmitBtn>
+      </Bottom>
     </Wrapper>
   );
 };

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export const Box = styled.div`
+export const Wrapper = styled.div`
   position: absolute;
   left: 0;
   top: 0;
@@ -8,16 +8,15 @@ export const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #74b9ff;
 `;
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+
 export const Btn = styled.button`
   padding: 10px 20px;
   background-color: rgb(255, 117, 117);
   color: white;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
+  font-size: 32px;
+  font-weight: 500;
 `;
