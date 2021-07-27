@@ -1,42 +1,60 @@
-import React, { useEffect, MouseEvent, FormEvent } from "react";
+import React, { FormEvent } from "react";
 import { useSelector } from "react-redux";
-
 import GLobalState from "../../types/GlobalState";
-import { Bottom, CloseBtn, Form, SubmitBtn, Top, Wrapper } from "./styles";
-import "./styles.ts";
+import { Bottom, CloseBtn, ErrorMsg, Form, Mid, SubmitBtn, Top, Wrapper } from "./styles";
+import SelectTerminal from "../SelectTerminal";
+import { sendItems } from "../../services/http_servise";
+import ItemGroup from "../ItemGroup";
 
-const Modal = ({ SetIsModalOpened }: { SetIsModalOpened: any }) => {
+const Modal = ({ setIsModalOpened }: { setIsModalOpened: (isModalOpened:boolean)=>void }) => {
+
+
+  const comparator = "comparator"
+
   const { cargoes, terminals, error, loading } = useSelector(
     (state: GLobalState) => state.data
   );
 
+  const items = useSelector(
+    (state: GLobalState) => state.items
+  );
+
   if (loading) return <h1>Loading...</h1>;
 
-  if (error) return <h1>{error}</h1>;
 
-  const submitHandler = (e: FormEvent) => {
+  if ((typeof terminals === typeof comparator) || (typeof cargoes === typeof comparator)) return <ErrorMsg>Something went wrong</ErrorMsg>;
+
+  const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
+    try {
+      const response = await sendItems(items)
+     setIsModalOpened(false)
+      console.log(response);
+    }
+    catch (e) {
+      throw e;
+    }
   };
 
   return (
     <Wrapper>
       <Top>
         <h2>Edit Rotation</h2>
-        <CloseBtn onClick={() => SetIsModalOpened(false)}>&times;</CloseBtn>
+        <CloseBtn onClick={() => setIsModalOpened(false)}>&times;</CloseBtn>
       </Top>
       <Form>
-        <select name="terminals" id="">
-          <option>add...</option>
-          {terminals.map((terminal) => (
-            <option key={terminal.id}>{terminal.name}</option>
-          ))}
-        </select>
+        <Mid>
+          <SelectTerminal />
+          {items.map(terminal => {
+            return <ItemGroup terminalId={terminal.id} key={terminal.id} />
+          })}
+        </Mid>
+        <Bottom>
+          <SubmitBtn type="submit" onClick={submitHandler}>
+            Submit
+          </SubmitBtn>
+        </Bottom>
       </Form>
-      <Bottom>
-        <SubmitBtn type="submit" onClick={submitHandler}>
-          Submit
-        </SubmitBtn>
-      </Bottom>
     </Wrapper>
   );
 };

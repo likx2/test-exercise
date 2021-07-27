@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   z-index: 10;
+  background-color: #fff;
 `;
 
 export const Top = styled.div`
@@ -18,6 +19,10 @@ export const Top = styled.div`
   padding: 15px;
   background-color: #b2bec3;
 `;
+export const Mid = styled.div`
+height: 80vh;
+padding: 15px;
+`
 
 export const Bottom = styled.div`
   width: 100%;
@@ -29,9 +34,11 @@ export const Bottom = styled.div`
 export const SubmitBtn = styled.button`
   display: block;
   padding: 8px 25px;
-  border: 2px solid black;
+  border-radius: 3px;
   font-size: 15px;
   margin: 0 0 0 auto;
+  background-color: #6c5ce7;
+  color: #fff;
 `;
 
 export const Form = styled.form`
@@ -43,3 +50,19 @@ export const Form = styled.form`
 export const CloseBtn = styled.button`
   font-size: 40px;
 `;
+
+export const ErrorMsg = styled.h1`
+position: absolute;
+left:50%;
+transform: translateX(-50%);
+
+color: red;
+`
+
+export const AddBtn = styled.button`
+    padding:  5px 10px;
+        background-color: #74b9ff;
+        color: #fff;
+        border-radius: 3px;
+        height: fit-content;
+`

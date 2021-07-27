@@ -5,7 +5,7 @@ import Modal from "../Modal";
 import { Wrapper, Btn } from "./styles";
 import "./styles.ts";
 const Main = () => {
-  const [isModaOpened, SetIsModalOpened] = useState(false);
+  const [isModaOpened, setIsModalOpened] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -16,9 +16,9 @@ const Main = () => {
   return (
     <>
       <Wrapper>
-        <Btn onClick={() => SetIsModalOpened(true)}>Start rotation</Btn>
+        <Btn onClick={() => setIsModalOpened(true)}>Start rotation</Btn>
       </Wrapper>
-      {isModaOpened ? <Modal SetIsModalOpened={SetIsModalOpened} /> : null}
+      {isModaOpened ? <Modal setIsModalOpened={setIsModalOpened} /> : null}
     </>
   );
 };

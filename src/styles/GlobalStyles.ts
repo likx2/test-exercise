@@ -7,7 +7,7 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
 }
 body {
-  font-family: 'Raleway', sans-serif;
+ font-family: 'Noto Sans JP', sans-serif;
 }
 
 a,input,button,textarea {

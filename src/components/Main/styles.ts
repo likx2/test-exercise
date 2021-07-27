@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 
 export const Btn = styled.button`
   padding: 10px 20px;
-  background-color: rgb(255, 117, 117);
+  background-color: #6c5ce7;
   color: white;
   border: none;
   border-radius: 10px;
