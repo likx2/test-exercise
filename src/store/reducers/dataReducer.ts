@@ -1,4 +1,5 @@
 import { DataState, DataAction, DATA_ACTIONS } from '../../types/data';
+import { isString } from '../../utils/utilities';
 
 const initialState: DataState = {
   terminals: [],
@@ -16,10 +17,21 @@ export const dataReducer = (state = initialState, action: DataAction): DataState
 
     case DATA_ACTIONS.FETCH_SUCCESS:
       const { terminals, cargoes } = action.payload;
-      return { ...state, loading: false, terminals, cargoes };
+      return {
+        ...state,
+        loading: false,
+        terminals,
+        cargoes,
+        error: isString(terminals) || isString(cargoes) ? 'error' : ''
+      };
 
     case DATA_ACTIONS.SEND_SUCCESS:
-      return { ...state, loading: false, success: true, error: action.payload ? action.payload : '' };
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: isString(action.payload) ? 'error' : ''
+      };
 
     case DATA_ACTIONS.ERROR:
       return { ...state, loading: false, error: action.payload.error, status: action.payload.status };

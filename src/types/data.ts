@@ -15,8 +15,8 @@ export interface StartRequestAction {
 export interface FetchSuccessAction {
   type: DATA_ACTIONS.FETCH_SUCCESS;
   payload: {
-    terminals: Terminal[];
-    cargoes: Cargo[];
+    terminals: any;
+    cargoes: any;
   };
 }
 

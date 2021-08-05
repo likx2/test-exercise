@@ -28,3 +28,7 @@ export const swapCargoesRemoving = (state: ItemState, terminalId: string, cargoI
   filteredTerminal[terminalIndex] = { id: terminalId, cargoIds: [...filteredCargoes] };
   return [...filteredTerminal, ...secPart];
 };
+
+export const isString = (arg: any) => {
+  return typeof arg === typeof 'string';
+};

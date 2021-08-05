@@ -20,9 +20,11 @@ const Main = () => {
     dispatch(fetchData());
   }, [dispatch]);
 
-  const comparator = 'comparator';
+  const { error, loading, status, success } = useSelector((state: GLobalState) => state.data);
 
-  const { cargoes, terminals, error, loading, status, success } = useSelector((state: GLobalState) => state.data);
+  const openModal = () => {
+    setIsModalOpened(true);
+  };
 
   if (loading)
     return (
@@ -31,7 +33,7 @@ const Main = () => {
       </Wrapper>
     );
 
-  if (typeof terminals === typeof comparator || typeof cargoes === typeof comparator || error) {
+  if (error) {
     return (
       <Wrapper>
         <Error status={status} />
@@ -50,7 +52,7 @@ const Main = () => {
   return (
     <>
       <Wrapper>
-        <Btn onClick={() => setIsModalOpened(true)}>Start rotation</Btn>
+        <Btn onClick={openModal}>Start rotation</Btn>
       </Wrapper>
       {isModaOpened ? <Modal setIsModalOpened={setIsModalOpened} /> : null}
     </>

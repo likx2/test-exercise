@@ -8,7 +8,7 @@ const sendData = (items: ItemState) => {
   return async (dispatch: Dispatch<DataAction>) => {
     try {
       const response = await sendItems(items);
-      console.log(response.data);
+
       dispatch({
         type: DATA_ACTIONS.SEND_SUCCESS,
         payload: response.data
