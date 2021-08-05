@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   position: absolute;
@@ -20,9 +20,9 @@ export const Top = styled.div`
   background-color: #b2bec3;
 `;
 export const Mid = styled.div`
-height: 80vh;
-padding: 15px;
-`
+  height: 80vh;
+  padding: 15px;
+`;
 
 export const Bottom = styled.div`
   width: 100%;
@@ -51,18 +51,10 @@ export const CloseBtn = styled.button`
   font-size: 40px;
 `;
 
-export const ErrorMsg = styled.h1`
-position: absolute;
-left:50%;
-transform: translateX(-50%);
-
-color: red;
-`
-
 export const AddBtn = styled.button`
-    padding:  5px 10px;
-        background-color: #74b9ff;
-        color: #fff;
-        border-radius: 3px;
-        height: fit-content;
-`
+  padding: 5px 10px;
+  background-color: #74b9ff;
+  color: #fff;
+  border-radius: 3px;
+  height: fit-content;
+`;

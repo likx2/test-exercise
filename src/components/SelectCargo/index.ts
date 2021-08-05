@@ -1,2 +1,2 @@
-import SelectCargo from "./SelectCargo";
+import SelectCargo from './SelectCargo';
 export default SelectCargo;

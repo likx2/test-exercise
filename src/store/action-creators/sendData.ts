@@ -1,20 +1,20 @@
 import { AxiosError } from 'axios';
 import { Dispatch } from 'react';
-import { getCargoes, getTerminals } from '../../services/http_servise';
+import { sendItems } from '../../services/http_servise';
 import { DataAction, DATA_ACTIONS } from '../../types/data';
+import { ItemState } from '../../types/item';
 
-const fetchData = () => {
+const sendData = (items: ItemState) => {
   return async (dispatch: Dispatch<DataAction>) => {
     try {
-      const [{ data: terminals }, { data: cargoes }] = await Promise.all([getTerminals(), getCargoes()]);
-
+      const response = await sendItems(items);
+      console.log(response.data);
       dispatch({
-        type: DATA_ACTIONS.FETCH_SUCCESS,
-        payload: { terminals, cargoes }
+        type: DATA_ACTIONS.SEND_SUCCESS,
+        payload: response.data
       });
     } catch (e) {
       const error = e as AxiosError;
-
       dispatch({
         type: DATA_ACTIONS.ERROR,
         payload: { error: error.message as string, status: error.response?.status as number }
@@ -23,4 +23,4 @@ const fetchData = () => {
   };
 };
 
-export default fetchData;
+export default sendData;

@@ -1,2 +1,2 @@
-import selectTerminal from "./SelectTerminal";
+import selectTerminal from './SelectTerminal';
 export default selectTerminal;

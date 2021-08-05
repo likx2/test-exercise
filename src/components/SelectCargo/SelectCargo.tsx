@@ -1,43 +1,41 @@
-import React, { ChangeEvent, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Cargo from "../../types/Cargo";
-import GLobalState from "../../types/GlobalState";
-import { ITEM_ACTIONS } from "../../types/item";
-
+import React, { ChangeEvent, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCargo } from '../../store/action-creators/item';
+import Cargo from '../../types/item';
+import GLobalState from '../../types/GlobalState';
 
 const SelectCargo = ({ terminalId }: { terminalId: string }) => {
+  const selectRef = useRef<HTMLSelectElement>(null);
 
+  const { cargoes } = useSelector((state: GLobalState) => state.data);
 
-    const selectRef = useRef<HTMLSelectElement>(null)
+  const items = useSelector((state: GLobalState) => state.items);
 
-    const { cargoes } = useSelector(
-        (state: GLobalState) => state.data
-    );
+  const dispatch = useDispatch();
 
-    const items = useSelector((state: GLobalState) => state.items)
+  const chooseCargo = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(addCargo(terminalId, e.currentTarget.value));
 
-    const dispatch = useDispatch()
-
-    const chooseCargo = (e: ChangeEvent<HTMLSelectElement>) => {
-
-        dispatch({ type: ITEM_ACTIONS.ADD_CARGO, payload: { terminalId, cargoId: e.currentTarget.value } })
-
-        if (selectRef.current) {
-            selectRef.current.selectedIndex = 0
-        }
+    if (selectRef.current) {
+      selectRef.current.selectedIndex = 0;
     }
+  };
 
-    const disableOption = (selectedItem: Cargo) => {
-        return items.some(item => (item.id === terminalId) && (item.cargoIds.includes(selectedItem.id)))
-    }
+  const disableOption = (selectedItem: Cargo) => {
+    return items.some((item) => item.id === terminalId && item.cargoIds.includes(selectedItem.id));
+  };
 
-    return (
-        <select ref={selectRef} onChange={chooseCargo} defaultValue='add...'>
-            <option disabled>add...</option>
-            {cargoes.map(cargo => {
-                return <option value={cargo.id} key={cargo.id} disabled={disableOption(cargo)}>{cargo.name}</option>
-            })}
-        </select>
-    )
-}
+  return (
+    <select ref={selectRef} onChange={chooseCargo} defaultValue="add...">
+      <option disabled>add...</option>
+      {cargoes.map((cargo) => {
+        return (
+          <option value={cargo.id} key={cargo.id} disabled={disableOption(cargo)}>
+            {cargo.name}
+          </option>
+        );
+      })}
+    </select>
+  );
+};
 export default SelectCargo;

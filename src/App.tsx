@@ -1,9 +1,9 @@
-import React from "react";
-import { Provider } from "react-redux";
-import Main from "./components/Main";
+import React from 'react';
+import { Provider } from 'react-redux';
+import Main from './components/Main';
 
-import store from "./store";
-import GlobalStyles from "./styles/GlobalStyles";
+import store from './store';
+import GlobalStyles from './styles/GlobalStyles';
 
 const App = () => {
   return (

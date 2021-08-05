@@ -1,2 +1,2 @@
-import AddedItem from "./AddedItem";
+import AddedItem from './AddedItem';
 export default AddedItem;

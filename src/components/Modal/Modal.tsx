@@ -1,39 +1,22 @@
-import React, { FormEvent } from "react";
-import { useSelector } from "react-redux";
-import GLobalState from "../../types/GlobalState";
-import { Bottom, CloseBtn, ErrorMsg, Form, Mid, SubmitBtn, Top, Wrapper } from "./styles";
-import SelectTerminal from "../SelectTerminal";
-import { sendItems } from "../../services/http_servise";
-import ItemGroup from "../ItemGroup";
+import React, { FormEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import GLobalState from '../../types/GlobalState';
+import { Bottom, CloseBtn, Form, Mid, SubmitBtn, Top, Wrapper } from './styles';
+import SelectTerminal from '../SelectTerminal';
+import ItemGroup from '../ItemGroup';
+import sendData from '../../store/action-creators/sendData';
+import { DATA_ACTIONS } from '../../types/data';
 
-const Modal = ({ setIsModalOpened }: { setIsModalOpened: (isModalOpened:boolean)=>void }) => {
+const Modal = ({ setIsModalOpened }: { setIsModalOpened: (isModalOpened: boolean) => void }) => {
+  const items = useSelector((state: GLobalState) => state.items);
 
-
-  const comparator = "comparator"
-
-  const { cargoes, terminals, error, loading } = useSelector(
-    (state: GLobalState) => state.data
-  );
-
-  const items = useSelector(
-    (state: GLobalState) => state.items
-  );
-
-  if (loading) return <h1>Loading...</h1>;
-
-
-  if ((typeof terminals === typeof comparator) || (typeof cargoes === typeof comparator)) return <ErrorMsg>Something went wrong</ErrorMsg>;
+  const dispatch = useDispatch();
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await sendItems(items)
-     setIsModalOpened(false)
-      console.log(response);
-    }
-    catch (e) {
-      throw e;
-    }
+    setIsModalOpened(false);
+    dispatch({ type: DATA_ACTIONS.START_REQUEST });
+    dispatch(sendData(items));
   };
 
   return (
@@ -45,8 +28,8 @@ const Modal = ({ setIsModalOpened }: { setIsModalOpened: (isModalOpened:boolean)
       <Form>
         <Mid>
           <SelectTerminal />
-          {items.map(terminal => {
-            return <ItemGroup terminalId={terminal.id} key={terminal.id} />
+          {items.map((terminal) => {
+            return <ItemGroup terminalId={terminal.id} key={terminal.id} />;
           })}
         </Mid>
         <Bottom>

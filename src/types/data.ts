@@ -1,30 +1,42 @@
-import Cargo from "./Cargo";
+import Cargo from './item';
+import Terminal from './item';
 
-import Terminal from "./Terminal";
-
-export enum FETCH_DATA_ACTIONS {
-  SUCCESS = "SUCCESS",
-  ERROR = "ERROR",
+export enum DATA_ACTIONS {
+  START_REQUEST = 'START_REQUEST',
+  FETCH_SUCCESS = 'FETCH_SUCCESS',
+  SEND_SUCCESS = 'SEND_SUCCESS',
+  ERROR = 'ERROR'
 }
 
-export interface SuccessAction {
-  type: FETCH_DATA_ACTIONS.SUCCESS;
+export interface StartRequestAction {
+  type: DATA_ACTIONS.START_REQUEST;
+}
+
+export interface FetchSuccessAction {
+  type: DATA_ACTIONS.FETCH_SUCCESS;
   payload: {
     terminals: Terminal[];
     cargoes: Cargo[];
   };
 }
 
-export interface ErrorAction {
-  type: FETCH_DATA_ACTIONS.ERROR;
-  payload: string;
+export interface SendSuccessAction {
+  type: DATA_ACTIONS.SEND_SUCCESS;
+  payload?: string;
 }
 
-export type DataAction = SuccessAction | ErrorAction;
+export interface ErrorAction {
+  type: DATA_ACTIONS.ERROR;
+  payload: { error: string; status: number };
+}
 
-export default interface DataState {
+export type DataAction = StartRequestAction | FetchSuccessAction | SendSuccessAction | ErrorAction;
+
+export interface DataState {
   terminals: Terminal[];
   cargoes: Cargo[];
   loading: boolean;
   error: string;
+  status: number;
+  success: boolean;
 }
