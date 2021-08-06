@@ -34,7 +34,8 @@ export const dataReducer = (state = initialState, action: DataAction): DataState
       };
 
     case DATA_ACTIONS.ERROR:
-      return { ...state, loading: false, error: action.payload.error, status: action.payload.status };
+      const { error, status } = action.payload;
+      return { ...state, loading: false, error, status };
 
     default:
       return state;

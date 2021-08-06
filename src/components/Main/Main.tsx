@@ -7,7 +7,6 @@ import Error from '../Error';
 import { Wrapper, Btn } from './styles';
 import './styles.ts';
 import Loading from '../Loading';
-import { DATA_ACTIONS } from '../../types/data';
 import Success from '../Success';
 import { startRequset } from '../../store/action-creators/startRequest';
 const Main = () => {
